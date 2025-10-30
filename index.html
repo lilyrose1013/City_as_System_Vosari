@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>City System</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            background-image: url('darker_image.jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+        }
+
+        .circle {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: rgb(236, 236, 50);
+            border-radius: 50%;
+            opacity: 0.3;
+            animation: expand 5s infinite;
+        }
+
+        .circle1 {
+            animation-delay: 0s;
+        }
+
+        .circle2 {
+            animation-delay: 1s;
+        }
+
+        .circle3 {
+            animation-delay: 2s;
+        }
+
+        .circle4 {
+            animation-delay: 3s;
+        }
+
+        .circle5 {
+            animation-delay: 4s;
+        }
+
+        .circle6 {
+            animation-delay: 0.5s;
+        }
+
+        .circle7 {
+            animation-delay: 1.5s;
+        }
+
+        .circle8 {
+            animation-delay: 2.5s;
+        }
+
+        .circle9 {
+            animation-delay: 3.5s;
+        }
+
+        .circle10 {
+            animation-delay: 4.5s;
+        }
+
+        /* Additional positioned circles with layering */
+        .circle-top-right {
+            position: absolute;
+            top: 20%;
+            right: 20%;
+            transform: translate(50%, -50%);
+            background-color: rgb(236, 236, 50);
+            border-radius: 50%;
+            opacity: 0.3;
+            animation: expand-small 5s infinite;
+        }
+
+        .circle-top-right1 { animation-delay: 0s; }
+        .circle-top-right2 { animation-delay: 1s; }
+        .circle-top-right3 { animation-delay: 2s; }
+        .circle-top-right4 { animation-delay: 3s; }
+        .circle-top-right5 { animation-delay: 4s; }
+        .circle-top-right6 { animation-delay: 0.5s; }
+        .circle-top-right7 { animation-delay: 1.5s; }
+        .circle-top-right8 { animation-delay: 2.5s; }
+        .circle-top-right9 { animation-delay: 3.5s; }
+        .circle-top-right10 { animation-delay: 4.5s; }
+
+        .circle-left {
+            position: absolute;
+            top: 50%;
+            left: 15%;
+            transform: translate(-50%, -50%);
+            background-color: rgb(236, 236, 50);
+            border-radius: 50%;
+            opacity: 0.3;
+            animation: expand-small 5s infinite;
+        }
+
+        .circle-left1 { animation-delay: 0.5s; }
+        .circle-left2 { animation-delay: 1.5s; }
+        .circle-left3 { animation-delay: 2.5s; }
+        .circle-left4 { animation-delay: 3.5s; }
+        .circle-left5 { animation-delay: 4.5s; }
+        .circle-left6 { animation-delay: 0.25s; }
+        .circle-left7 { animation-delay: 1.25s; }
+        .circle-left8 { animation-delay: 2.25s; }
+        .circle-left9 { animation-delay: 3.25s; }
+        .circle-left10 { animation-delay: 4.25s; }
+
+        .circle-bottom-right {
+            position: absolute;
+            bottom: 25%;
+            right: 25%;
+            transform: translate(50%, 50%);
+            background-color: rgb(236, 236, 50);
+            border-radius: 50%;
+            opacity: 0.3;
+            animation: expand-small 5s infinite;
+        }
+
+        .circle-bottom-right1 { animation-delay: 1s; }
+        .circle-bottom-right2 { animation-delay: 2s; }
+        .circle-bottom-right3 { animation-delay: 3s; }
+        .circle-bottom-right4 { animation-delay: 4s; }
+        .circle-bottom-right5 { animation-delay: 0s; }
+        .circle-bottom-right6 { animation-delay: 0.75s; }
+        .circle-bottom-right7 { animation-delay: 1.75s; }
+        .circle-bottom-right8 { animation-delay: 2.75s; }
+        .circle-bottom-right9 { animation-delay: 3.75s; }
+        .circle-bottom-right10 { animation-delay: 4.75s; }
+
+        @keyframes expand-small {
+            0% {
+                width: 15px;
+                height: 15px;
+                opacity: 0.3;
+            }
+            100% {
+                width: 300px;
+                height: 300px;
+                opacity: 0;
+            }
+        }
+
+        @keyframes expand {
+            0% {
+                width: 20px;
+                height: 20px;
+                opacity: 0.3;
+            }
+            100% {
+                width: 500px;
+                height: 500px;
+                opacity: 0;
+            }
+        }
+
+        /* Red triangle styles */
+        .triangle {
+            position: absolute;
+            width: 0;
+            height: 0;
+            border-left: 10px solid transparent;
+            border-right: 10px solid transparent;
+            border-bottom: 15px solid #e74c3c;
+            opacity: 0;
+            animation: triangleAppear 1s ease-in-out forwards;
+        }
+
+        /* Triangle positions matching the exact screenshot locations - more precise */
+        .triangle1 { top: 7%; left: 12%; animation-delay: 0.5s; }
+        .triangle2 { top: 3%; left: 62%; animation-delay: 1s; }
+        .triangle3 { top: 20%; left: 15%; animation-delay: 1.5s; }
+        .triangle4 { top: 14%; left: 67%; animation-delay: 2s; }
+        .triangle5 { top: 26%; left: 22%; animation-delay: 2.5s; }
+        .triangle8 { top: 32%; left: 35%; animation-delay: 4s; }
+        .triangle9 { top: 28%; left: 52%; animation-delay: 4.5s; }
+        .triangle10 { top: 44%; left: 68%; animation-delay: 5s; }
+        .triangle13 { top: 66%; left: 68%; animation-delay: 6.5s; }
+        .triangle14 { top: 74%; left: 72%; animation-delay: 7s; }
+        .triangle15 { top: 80%; left: 76%; animation-delay: 7.5s; }
+        .triangle16 { top: 88%; left: 82%; animation-delay: 8s; }
+
+        @keyframes triangleAppear {
+            0% {
+                opacity: 0;
+                transform: scale(0.1) rotate(180deg);
+            }
+            50% {
+                transform: scale(1.2) rotate(0deg);
+            }
+            100% {
+                opacity: 1;
+                transform: scale(1) rotate(0deg);
+            }
+        }
+
+        /* Second layer triangles - bigger with 60% opacity */
+        .triangle-layer2 {
+            position: absolute;
+            width: 0;
+            height: 0;
+            border-left: 15px solid transparent;
+            border-right: 15px solid transparent;
+            border-bottom: 22px solid #e74c3c;
+            opacity: 0;
+            animation: triangleAppearLayer2 1s ease-in-out forwards;
+            transform: translate(-2.5px, -3.5px); /* Center the larger triangle on top of the smaller one */
+        }
+
+        /* Second layer positions - same as first layer */
+        .triangle-layer2-1 { top: 7%; left: 12%; animation-delay: 8.5s; }
+        .triangle-layer2-2 { top: 3%; left: 62%; animation-delay: 9s; }
+        .triangle-layer2-3 { top: 20%; left: 15%; animation-delay: 9.5s; }
+        .triangle-layer2-4 { top: 14%; left: 67%; animation-delay: 10s; }
+        .triangle-layer2-5 { top: 26%; left: 22%; animation-delay: 10.5s; }
+        .triangle-layer2-8 { top: 32%; left: 35%; animation-delay: 11s; }
+        .triangle-layer2-9 { top: 28%; left: 52%; animation-delay: 11.5s; }
+        .triangle-layer2-10 { top: 44%; left: 68%; animation-delay: 12s; }
+        .triangle-layer2-13 { top: 66%; left: 68%; animation-delay: 12.5s; }
+        .triangle-layer2-14 { top: 74%; left: 72%; animation-delay: 13s; }
+        .triangle-layer2-15 { top: 80%; left: 76%; animation-delay: 13.5s; }
+        .triangle-layer2-16 { top: 88%; left: 82%; animation-delay: 14s; }
+
+        @keyframes triangleAppearLayer2 {
+            0% {
+                opacity: 0;
+                transform: translate(-2.5px, -3.5px) scale(0.1) rotate(180deg);
+            }
+            50% {
+                transform: translate(-2.5px, -3.5px) scale(1.2) rotate(0deg);
+            }
+            100% {
+                opacity: 0.6;
+                transform: translate(-2.5px, -3.5px) scale(1) rotate(0deg);
+            }
+        }
+
+        /* Third layer triangles - even bigger with 40% opacity */
+        .triangle-layer3 {
+            position: absolute;
+            width: 0;
+            height: 0;
+            border-left: 22px solid transparent;
+            border-right: 22px solid transparent;
+            border-bottom: 32px solid #e74c3c;
+            opacity: 0;
+            animation: triangleAppearLayer3 1s ease-in-out forwards;
+            transform: translate(-6px, -8.5px); /* Center the even larger triangle on top */
+        }
+
+        /* Third layer positions - same as first and second layers */
+        .triangle-layer3-1 { top: 7%; left: 12%; animation-delay: 15s; }
+        .triangle-layer3-2 { top: 3%; left: 62%; animation-delay: 15.5s; }
+        .triangle-layer3-3 { top: 20%; left: 15%; animation-delay: 16s; }
+        .triangle-layer3-4 { top: 14%; left: 67%; animation-delay: 16.5s; }
+        .triangle-layer3-5 { top: 26%; left: 22%; animation-delay: 17s; }
+        .triangle-layer3-8 { top: 32%; left: 35%; animation-delay: 17.5s; }
+        .triangle-layer3-9 { top: 28%; left: 52%; animation-delay: 18s; }
+        .triangle-layer3-10 { top: 44%; left: 68%; animation-delay: 18.5s; }
+        .triangle-layer3-13 { top: 66%; left: 68%; animation-delay: 19s; }
+        .triangle-layer3-14 { top: 74%; left: 72%; animation-delay: 19.5s; }
+        .triangle-layer3-15 { top: 80%; left: 76%; animation-delay: 20s; }
+        .triangle-layer3-16 { top: 88%; left: 82%; animation-delay: 20.5s; }
+
+        @keyframes triangleAppearLayer3 {
+            0% {
+                opacity: 0;
+                transform: translate(-6px, -8.5px) scale(0.1) rotate(180deg);
+            }
+            50% {
+                transform: translate(-6px, -8.5px) scale(1.2) rotate(0deg);
+            }
+            100% {
+                opacity: 0.4;
+                transform: translate(-6px, -8.5px) scale(1) rotate(0deg);
+            }
+        }
+
+        /* Clock in bottom left corner */
+        .clock {
+            position: fixed;
+            bottom: 15px;
+            left: 15px;
+            width: 200px;
+            height: 200px;
+            z-index: 1000;
+            opacity: 0.7;
+            transition: opacity 0.3s ease;
+        }
+
+        .clock:hover {
+            opacity: 1;
+        }
+
+        .clock img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            max-width: 200px;
+            max-height: 200px;
+        }
+
+        /* Clock hover text */
+        .clock-text {
+            position: absolute;
+            bottom: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            color: white;
+            font-family: Arial, sans-serif;
+            font-size: 14px;
+            white-space: nowrap;
+            opacity: 1;
+            visibility: visible;
+            margin-bottom: -5px;
+        }
+
+        /* Hide all text items by default */
+        .clock-text-item {
+            display: none;
+        }
+
+        /* Show only the active text item */
+        .clock-text-item.active {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <!-- Clock in left corner -->
+    <div class="clock">
+        <img src="clock.png" alt="Clock">
+        <div class="clock-text">
+            <div class="clock-text-item active">Oct. 6. 2025 (10 stops)</div>
+            <div class="clock-text-item">Oct. 7. 2025 (13 stops)</div>
+            <div class="clock-text-item">Oct. 8. 2025 (7 stops)</div>
+            <div class="clock-text-item">Oct. 9. 2025 (15 stops)</div>
+            <div class="clock-text-item">Oct. 10. 2025 (9 stops)</div>
+            <div class="clock-text-item">Oct. 11. 2025 (12 stops)</div>
+            <div class="clock-text-item">Oct. 12. 2025 (6 stops)</div>
+            <div class="clock-text-item">Oct. 13. 2025 (16 stops)</div>
+            <div class="clock-text-item">Oct. 14. 2025 (11 stops)</div>
+        </div>
+    </div>
+    
+    <audio id="backgroundAudio" autoplay loop muted>
+        <source src="Grand Central Train Station Ambience - QuickSounds.com.mp3" type="audio/mpeg">
+       
+    </audio>
+    
+    <!-- Expanding circles -->
+    <div class="circle circle1"></div>
+    <div class="circle circle2"></div>
+    <div class="circle circle3"></div>
+    <div class="circle circle4"></div>
+    <div class="circle circle5"></div>
+    <div class="circle circle6"></div>
+    <div class="circle circle7"></div>
+    <div class="circle circle8"></div>
+    <div class="circle circle9"></div>
+    <div class="circle circle10"></div>
+    
+    <!-- Top-right layered circles -->
+    <div class="circle-top-right circle-top-right1"></div>
+    <div class="circle-top-right circle-top-right2"></div>
+    <div class="circle-top-right circle-top-right3"></div>
+    <div class="circle-top-right circle-top-right4"></div>
+    <div class="circle-top-right circle-top-right5"></div>
+    <div class="circle-top-right circle-top-right6"></div>
+    <div class="circle-top-right circle-top-right7"></div>
+    <div class="circle-top-right circle-top-right8"></div>
+    <div class="circle-top-right circle-top-right9"></div>
+    <div class="circle-top-right circle-top-right10"></div>
+    
+    <!-- Left layered circles -->
+    <div class="circle-left circle-left1"></div>
+    <div class="circle-left circle-left2"></div>
+    <div class="circle-left circle-left3"></div>
+    <div class="circle-left circle-left4"></div>
+    <div class="circle-left circle-left5"></div>
+    <div class="circle-left circle-left6"></div>
+    <div class="circle-left circle-left7"></div>
+    <div class="circle-left circle-left8"></div>
+    <div class="circle-left circle-left9"></div>
+    <div class="circle-left circle-left10"></div>
+    
+    <!-- Bottom-right layered circles -->
+    <div class="circle-bottom-right circle-bottom-right1"></div>
+    <div class="circle-bottom-right circle-bottom-right2"></div>
+    <div class="circle-bottom-right circle-bottom-right3"></div>
+    <div class="circle-bottom-right circle-bottom-right4"></div>
+    <div class="circle-bottom-right circle-bottom-right5"></div>
+    <div class="circle-bottom-right circle-bottom-right6"></div>
+    <div class="circle-bottom-right circle-bottom-right7"></div>
+    <div class="circle-bottom-right circle-bottom-right8"></div>
+    <div class="circle-bottom-right circle-bottom-right9"></div>
+    <div class="circle-bottom-right circle-bottom-right10"></div>
+    
+    <!-- Red triangles appearing one by one - matching screenshot positions -->
+    <div class="triangle triangle1"></div>
+    <div class="triangle triangle2"></div>
+    <div class="triangle triangle3"></div>
+    <div class="triangle triangle4"></div>
+    <div class="triangle triangle5"></div>
+    <div class="triangle triangle8"></div>
+    <div class="triangle triangle9"></div>
+    <div class="triangle triangle10"></div>
+    <div class="triangle triangle13"></div>
+    <div class="triangle triangle14"></div>
+    <div class="triangle triangle15"></div>
+    <div class="triangle triangle16"></div>
+    
+    <!-- Second layer triangles - slightly bigger with 40% opacity -->
+    <div class="triangle-layer2 triangle-layer2-1"></div>
+    <div class="triangle-layer2 triangle-layer2-2"></div>
+    <div class="triangle-layer2 triangle-layer2-3"></div>
+    <div class="triangle-layer2 triangle-layer2-4"></div>
+    <div class="triangle-layer2 triangle-layer2-5"></div>
+    <div class="triangle-layer2 triangle-layer2-8"></div>
+    <div class="triangle-layer2 triangle-layer2-9"></div>
+    <div class="triangle-layer2 triangle-layer2-10"></div>
+    <div class="triangle-layer2 triangle-layer2-13"></div>
+    <div class="triangle-layer2 triangle-layer2-14"></div>
+    <div class="triangle-layer2 triangle-layer2-15"></div>
+    <div class="triangle-layer2 triangle-layer2-16"></div>
+    
+    <!-- Third layer triangles - even bigger with higher opacity -->
+    <div class="triangle-layer3 triangle-layer3-1"></div>
+    <div class="triangle-layer3 triangle-layer3-2"></div>
+    <div class="triangle-layer3 triangle-layer3-3"></div>
+    <div class="triangle-layer3 triangle-layer3-4"></div>
+    <div class="triangle-layer3 triangle-layer3-5"></div>
+    <div class="triangle-layer3 triangle-layer3-8"></div>
+    <div class="triangle-layer3 triangle-layer3-9"></div>
+    <div class="triangle-layer3 triangle-layer3-10"></div>
+    <div class="triangle-layer3 triangle-layer3-13"></div>
+    <div class="triangle-layer3 triangle-layer3-14"></div>
+    <div class="triangle-layer3 triangle-layer3-15"></div>
+    <div class="triangle-layer3 triangle-layer3-16"></div>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const audio = document.getElementById('backgroundAudio');
+            
+            // Try to play immediately
+            audio.muted = false;
+            audio.play().catch(function(error) {
+                console.log('Autoplay was prevented:', error);
+                
+                // If autoplay fails, wait for user interaction
+                document.addEventListener('click', function() {
+                    audio.muted = false;
+                    audio.play();
+                }, { once: true });
+                
+                document.addEventListener('keydown', function() {
+                    audio.muted = false;
+                    audio.play();
+                }, { once: true });
+            });
+
+            // Clock automatic random text cycling
+            const textItems = document.querySelectorAll('.clock-text-item');
+            let currentIndex = 0;
+
+            // Function to show a random different text
+            function showRandomText() {
+                // Hide current text
+                textItems[currentIndex].classList.remove('active');
+                
+                // Get a random index different from the current one
+                let newIndex;
+                do {
+                    newIndex = Math.floor(Math.random() * textItems.length);
+                } while (newIndex === currentIndex && textItems.length > 1);
+                
+                currentIndex = newIndex;
+                
+                // Show new random text
+                textItems[currentIndex].classList.add('active');
+            }
+
+            // Start automatic cycling every 4 seconds
+            setInterval(showRandomText, 4000);
+        });
+    </script>
+</body>
+</html>
